@@ -1,3 +1,22 @@
-This is my thesis. The main focus is to run djanog with react frontned and postgres sql. There were some problems during making this project. At first I planned to make it on minikube, wel this didn't go well. So I needed to choose another cloud computing solution. This is the reason why I chose AWS, this is a perferctly formed cloud to make my thesis well. The only preoblem was time, in aws gui, it took ahead of time to make an eks and then destroy it. As a regard of my current situation, I made a plan with an infrastructure as code named terrafrom, with this I was able to make eks and an addition provider for my project. The backend and frontend can be found on my project below. In additional, I wanted to use my yaml fle from my previous minikube idea, so this is the reason why I placed my k8s files on terraform. I got secret config map, deployment service and an ingress too, it helps to a reserved proxy way to sent traffic request from react to django and sent back to gui to see the conclusion. Due to eks security, I had to use load balancer to reach in worker node yaml getting react gui. I used helm chart load balancer controller to get a service account with proper policies. After that I needed to solve 2 zone database problem. For this I used rds to get database for django and then make a centre data collector called efs.
-Okay I wrote what I intended to do, I made provider for specific versions, local for easier reference, I made vpc with subnets private and public with nat gateway. Eks with correspond policies, node and load balancer as well. I had to make an oid for helm chart efs controller too.
-Now the issues, at first, load balancer controller was made but not the way I needed. Its making in helm provider, but the previous policy document poliy role attachment and association is not attaching for it. As a result ingress cannot make address for load balancer, therefore I cannot access frontend. I still working on what is reallly happening around policies.
+ Thesis Project: Django + React + PostgreSQL on AWS
+
+ Overview  
+This project demonstrates how to deploy a Django backend with a React frontend and PostgreSQL database using AWS EKS and Terraform. Initially, I planned to use Minikube, but due to various issues, I switched to AWS, which provided a more robust cloud environment for my thesis.  
+
+ Technologies Used  
+- **Frontend**: React  
+- **Backend**: Django  
+- **Database**: PostgreSQL (AWS RDS)  
+- **Infrastructure as Code**: Terraform  
+- **Container Orchestration**: Kubernetes (EKS)  
+- **Storage**: EFS  
+- **Load Balancer**: AWS Load Balancer Controller (Helm)  
+
+ Challenges & Solutions  
+- **Minikube Limitations** → Switched to AWS EKS  
+- **EKS Deployment Delays** → Automated with Terraform  
+- **Multi-Zone Database Issue** → Used AWS RDS for Django + EFS for shared storage  
+- **Ingress & Security** → Implemented an NLB with proper IAM policies  
+
+ Conclusion  
+This project successfully integrates a React-Django application with PostgreSQL on AWS using Kubernetes. The setup is automated with Terraform, and security policies are handled via IAM roles and Helm charts. 
