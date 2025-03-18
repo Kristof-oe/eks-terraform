@@ -1,0 +1,46 @@
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: ingress
+  annotations:
+     alb.ingress.kubernetes.io/scheme: internet-facing
+     alb.ingress.kubernetes.io/target-type: ip
+    #  alb.ingress.kubernetes.io/group.name: "dev-alb-tg"
+     alb.ingress.kubernetes.io/healthcheck-path: /health
+spec:
+  ingressClassName: alb
+  rules:
+    - host: frontend.weather.com
+      http:
+        paths:
+          - path: /update/*
+            pathType: Prefix
+            backend:
+              service:
+                name: djangoserv
+                port:
+                  number: 8000
+
+          - path: /get/*
+            pathType: Prefix
+            backend:
+              service:
+                name: djangoserv
+                port:
+                  number: 8000
+
+          - path: /json/*
+            pathType: Prefix
+            backend:
+              service:
+                name: djangoserv
+                port:
+                  number: 8000
+
+          - path: /
+            pathType: Prefix
+            backend:
+              service:
+                name: react-service
+                port:
+                  number: 3000 

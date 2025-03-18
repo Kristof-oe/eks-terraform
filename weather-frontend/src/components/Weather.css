@@ -1,0 +1,34 @@
+
+
+.Weather{
+
+    grid-column: 1 / 2; 
+    grid-row: 2;
+
+    background-color: rgba(255, 243, 224, 0.4);
+    border-radius: 10px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    
+
+}
+.Table {
+    margin: 20px 0;
+    width: 70%;
+    justify-content: space-between;
+  }
+  
+.Table td {
+    padding: 10px;
+
+
+  }
+
+.Table2{
+
+    text-align: right;
+}
+

@@ -1,0 +1,53 @@
+.Header{
+    grid-column: 1 / 2; 
+    grid-row: 1; 
+
+    text-align: center;
+    align-items: center;
+    display: flex;
+}
+.form-switch{
+    display: flex; 
+    align-items: left;
+    padding-right: 12px;
+    margin-left: 12px;
+
+
+}
+.form-check-input{
+    transform: scale(1.5);
+    cursor: pointer;
+
+}
+.search-bar{
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    
+
+}
+.search-bar input{
+    height: 50px;
+    background-color: hsl(0, 0%, 50%);
+    border: none;
+    outline: none;
+    border-radius: 40px;
+    padding-left: 25px;
+    font-size: 18px;
+
+}
+.search-bar img{
+    background-color: hsl(0, 0%, 50%);
+    width: 50px;
+    padding: 15px;
+    border-radius: 50%;
+    cursor: pointer;
+}
+
+.search-bar img:hover{
+    background-color: hsl(0, 0%, 41%);
+    width: 50px;
+    padding: 15px;
+    border-radius: 50%;
+    cursor: pointer;
+}
