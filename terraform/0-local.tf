@@ -6,3 +6,4 @@ locals {
   eks_name   = "szakd-eks"
   eks_version="1.32"
 }
+#
