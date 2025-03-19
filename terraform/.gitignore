@@ -5,4 +5,3 @@ terraform/terrr
 terraform/terrr.terraform.tfstate
 terraform/terrr.tfstate.backup
 terraform/.terraform.lock.hcl
-terraform/policy.json
