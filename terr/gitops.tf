@@ -1,6 +1,6 @@
 
 resource "local_file" "gitops" {
-    content = templatefile("${path.module}/gitrepo/app_helm.yaml.tpl", {
+    content = templatefile("${path.module}/gitrepo/argo/app_helm.yaml.tpl", {
         create_namespace=true
         cleanup_on_fail=true
         chart="karpenter"
@@ -25,7 +25,7 @@ resource "local_file" "gitops" {
 }
 
 resource "local_file" "gitops1" {
-    content = templatefile("${path.module}/gitrepo/app_node.yaml.tpl", {
+    content = templatefile("${path.module}/gitrepo/argo/app_node.yaml.tpl", {
         create_namespace=true
         cleanup_on_fail=true
         chart="karpenter"
