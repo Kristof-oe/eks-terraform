@@ -5,6 +5,7 @@ on:
       - main
       - destroy
       - apply
+      - argo
   
 
   pull_request:
@@ -12,10 +13,12 @@ on:
       - main
       - destroy
       - apply
+      - argo
 
 env:
  AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
  AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+ BUCKET_TF_STATE: ${{secrets.BUCKET_TF_STATE}}
  AWS_REGION: us-east-1
 
 jobs: 
@@ -33,6 +36,8 @@ jobs:
 
     - name: Setup Terraform with specified version on the runner
       uses: hashicorp/setup-terraform@v3
+
+
       
     - name: Terraform init
       id: init
@@ -60,10 +65,29 @@ jobs:
       if: github.ref == 'refs/heads/apply' && github.event_name == 'push'
       run: terraform apply -auto-approve -input=false -parallelism=1 planfile
     
+    - name: Commit and push
+      id: argo
+      if: steps.apply.outcome == 'success' && github.ref == 'refs/heads/apply' && github.event_name == 'push'
+      run: |
+        git fetch origin
+        git checkout argo
+        git checkout apply -- git/output/output.yaml
+        git add git/output/output.yaml
+        git commit -m "Updated output for argocd" || echo "There is no any changes"
+        git push origin argo
+       
+    
     - name: Terrafrom Destroy
       id: destroy
       if: github.ref == 'refs/heads/destroy' && github.event_name == 'push'
-      run: terraform destroy -auto-approve -input=false -parallelism=1 
+      run: |
+        terraform destroy -auto-approve -input=false -parallelism=1 
+        git fetch origin
+        git checkout argo
+        :> git/output/output.yaml 
+        git add git/output/output.yaml
+        git commit -m "Clear output.yaml" || echo "There is no any changes"
+        git push origin argo
     
 
   

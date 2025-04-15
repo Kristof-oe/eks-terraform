@@ -6,7 +6,7 @@ metadata:
 spec:
   project: default
   source:
-    repoURL: https://github.com/Kristof-oe/argocd_szakd.git
+    repoURL: https://github.com/Kristof-oe/eks-terraform.git
     targetRevision: HEAD
     path: karpenter
   destination:
