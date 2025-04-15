@@ -1,0 +1,84 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: djangodeployment
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: django
+      tier: Backend
+  template:
+    metadata:
+      labels:
+        app: django
+        tier: Backend
+    spec:
+      initContainers:
+        - name: wait-pvc
+          image: busybox
+          command: ["sh", "-c", " sleep 10; echo 'Ready'" ]
+      containers:
+      - name: django-weather
+        image: kris200036/django:latest
+        imagePullPolicy: Always
+        ports:
+          - containerPort: 8000
+        env:
+          - name: DJANGO_ALLOWED_HOSTS
+            valueFrom:
+              configMapKeyRef:
+                name: app-variable
+                key: DJANGO_ALLOWED_HOSTS
+          - name: DB_ENGINE
+            valueFrom:
+              configMapKeyRef:
+                name: app-variable
+                key: DB_ENGINE
+          - name: DB_DATABASE
+            valueFrom:
+              configMapKeyRef:
+                name: app-variable
+                key: DB_DATABASE
+          - name: DB_USER
+            valueFrom:
+              configMapKeyRef:
+                name: app-variable
+                key: DB_USER
+          - name: DB_PASSWORD
+            valueFrom:
+              secretKeyRef:
+                name: app-secret
+                key: DB_PASSWORD
+          - name: DB_HOST
+            valueFrom:
+              configMapKeyRef:
+                name: app-variable
+                key: DB_HOST
+          - name: DB_PORT
+            valueFrom:
+              configMapKeyRef:
+                name: app-variable
+                key: DB_PORT
+        volumeMounts:
+        - mountPath: "/mt/efs/media"
+          name: efs-storage
+      volumes:
+      - name: efs-storage
+        persistentVolumeClaim:
+          claimName: efs-pvc
+
+            
+
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: djangoserv
+spec:
+  type: ClusterIP
+  selector:
+    app: django
+  ports:
+    - port: 8000
+      targetPort: 8000

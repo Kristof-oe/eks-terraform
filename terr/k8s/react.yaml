@@ -1,0 +1,34 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: reactdeployment
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: react
+      tier: Frontend
+  template:
+    metadata:
+      labels:
+        app: react
+        tier: Frontend
+    spec:
+      containers:
+        - name: react-weather
+          image: kris200036/react:latest
+          ports:
+            - containerPort: 3000
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: react-service
+spec:
+  selector:
+    app: react
+  ports:
+    - protocol: TCP
+      port: 3000
+      targetPort: 3000
+  type: ClusterIP

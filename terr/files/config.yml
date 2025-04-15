@@ -1,0 +1,14 @@
+POSTGRES_USER: djangouser
+POSTGRES_DB: postgres
+
+DEBUG: "1"
+SECRET_KEY: kris
+DJANGO_ALLOWED_HOSTS: "*"
+DJANGO_ADMIN_USER: kris
+DJANGO_ADMIN_EMAIL: admin@exa.com
+
+DATABASE: postgres
+DB_ENGINE: django.db.backends.postgresql
+DB_DATABASE: postgres
+DB_USER: djangouser
+DB_PORT: "5432"
