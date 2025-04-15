@@ -1,0 +1,28 @@
+apiVersion: argoproj.io/v1apha1
+kind: Application
+metadata:
+  name: argp-bootstrap
+  namespace: argocd
+spec:
+  project: default
+  source:
+    repoURL: https://github.com/Kristof-oe/argocd_szakd.git
+    targetRevision: HEAD
+    path: karpenter
+  destination:
+    namespace: argocd
+    server: https://kubernetes.default.svc
+
+  syncPolicy:
+    syncOptions:
+      - CreateNamespace=true
+
+    automated:
+      selfHeal: true
+      prune: true
+
+
+
+  
+
+
