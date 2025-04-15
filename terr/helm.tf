@@ -56,18 +56,14 @@ resource "helm_release" "alb-controller" {
 }
 
 resource "helm_release" "argocd" {
-  name = "argocd"
-  repository = "https://raw.githubusercontent.com/argoproj/argo-cd/stable/manifests/install.yaml"
-  chart = "argocd"
-  namespace = var.argocd_namespace
+  name             = "argo-cd"
+  repository       = "https://argoproj.github.io/argo-helm"
+  chart            = "argo-cd"
+  namespace        = var.argocd_namespace
   create_namespace = true
-  version = var.argocd_version
+  # version          = var.argocd_version
 
-  set{
-    name = "server.service.tpye"
-    value = "LoadBalancer"
-  }
-  
+
 }
 
 # resource "helm_release" "karpenter-karpenter" {
@@ -147,15 +143,15 @@ resource "helm_release" "efs-csi-driver" {
 }
 
 
-resource "helm_release" "prometheus" {
-  name             = "kube-prometheus-stack"
-  repository       = "https://prometheus-community.github.io/helm-charts"
-  chart            = "kube-prometheus-stack"
-  namespace        = "monitoring"
-  create_namespace = true
+# resource "helm_release" "prometheus" {
+#   name             = "kube-prometheus-stack"
+#   repository       = "https://prometheus-community.github.io/helm-charts"
+#   chart            = "kube-prometheus-stack"
+#   namespace        = "monitoring"
+#   create_namespace = true
 
-  set {
-    name  = "prometheus.prometheusSpec.serviceMonitorSelectorNilUsesHelmValues"
-    value = false
-  }
-}
+#   set {
+#     name  = "prometheus.prometheusSpec.serviceMonitorSelectorNilUsesHelmValues"
+#     value = false
+#   }
+# }

@@ -15,7 +15,7 @@ terraform {
       version = "~>1.14.0"
     }
   }
-     backend "s3" {
+  backend "s3" {
     bucket = "eks-terraform12345"
     key    = "terraform.tfstate"
     region = "us-east-1"
