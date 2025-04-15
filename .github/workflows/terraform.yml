@@ -25,7 +25,7 @@ jobs:
     defaults:
       run:
         shell: bash
-        working-directory: .terr
+        working-directory: ./terr
     
     steps:
     - name: Checkout source core
