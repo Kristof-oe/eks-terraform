@@ -1,6 +1,6 @@
 
 resource "local_file" "gitops" {
-    content = templatefile("${path.module}/gitrepo/argo/app_helm.yaml", {
+    content = templatefile("${path.module}/git/argo/app_helm.yaml", {
         create_namespace=true
         cleanup_on_fail=true
         chart="karpenter"
@@ -20,12 +20,12 @@ resource "local_file" "gitops" {
         kubernetes_version=aws_eks_cluster.szakd-eks.version
         environment=local.env
     })
-    filename = "${path.module}/gitrepo/output/output.yaml"
+    filename = "${path.module}/git/output/output.yaml"
   
 }
 
 resource "local_file" "gitops1" {
-    content = templatefile("${path.module}/gitrepo/argo/app_node.yaml", {
+    content = templatefile("${path.module}/git/argo/app_node.yaml", {
         create_namespace=true
         cleanup_on_fail=true
         chart="karpenter"
@@ -45,7 +45,7 @@ resource "local_file" "gitops1" {
         kubernetes_version=aws_eks_cluster.szakd-eks.version
         environment=local.env
     })
-    filename = "${path.module}/gitrepo/output/output.yaml"
+    filename = "${path.module}/git/output/output.yaml"
   
 }
 
