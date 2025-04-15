@@ -1,6 +1,6 @@
 
 resource "local_file" "gitops" {
-  content = templatefile("${path.module}/argocd_szakd/argo/app_helm.yaml", {
+  content = templatefile("${path.module}/argo_gitops/argo/app_helm.yaml", {
     create_namespace   = true
     cleanup_on_fail    = true
     chart              = "karpenter"
@@ -20,12 +20,12 @@ resource "local_file" "gitops" {
     kubernetes_version = aws_eks_cluster.szakd-eks.version
     environment        = local.env
   })
-  filename = "${path.module}/argocd_szakd/output/output.yaml"
+  filename = "${path.module}/argo_gitops/output/output.yaml"
 
 }
 
 resource "local_file" "gitops1" {
-  content = templatefile("${path.module}/argocd_szakd/argo/app_node.yaml", {
+  content = templatefile("${path.module}/argo_gitops/argo/app_node.yaml", {
     create_namespace   = true
     cleanup_on_fail    = true
     chart              = "karpenter"
@@ -45,12 +45,12 @@ resource "local_file" "gitops1" {
     kubernetes_version = aws_eks_cluster.szakd-eks.version
     environment        = local.env
   })
-  filename = "${path.module}/argocd_szakd/output/output.yaml"
+  filename = "${path.module}/argo_gitops/output/output.yaml"
 
 }
 
 resource "local_file" "gitops3" {
-  content = templatefile("${path.module}/argocd_szakd/argo/app_monitor.yaml", {
+  content = templatefile("${path.module}/argo_gitops/argo/app_monitor.yaml", {
     create_namespace   = true
     cleanup_on_fail    = true
     chart              = "karpenter"
@@ -70,7 +70,7 @@ resource "local_file" "gitops3" {
     kubernetes_version = aws_eks_cluster.szakd-eks.version
     environment        = local.env
   })
-  filename = "${path.module}/argocd_szakd/output/output.yaml"
+  filename = "${path.module}/argo_gitops/output/output.yaml"
 
 }
 
