@@ -12,7 +12,7 @@ resource "local_file" "gitops" {
         reqmemory="1Gi"
         limitcpu=1
         limitmemory="1Gi"
-        serviceAccountname=karpenter
+        serviceAccountname="karpenter"
         serviceAccountarn=aws_iam_role.karpenter-controller.arn
 
         eks= aws_eks_cluster.szakd-eks
@@ -37,7 +37,7 @@ resource "local_file" "gitops1" {
         reqmemory="1Gi"
         limitcpu=1
         limitmemory="1Gi"
-        serviceAccountname=karpenter
+        serviceAccountname="karpenter"
         serviceAccountarn=aws_iam_role.karpenter-controller.arn
 
         eks= aws_eks_cluster.szakd-eks
