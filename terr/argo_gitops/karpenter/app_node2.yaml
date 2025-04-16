@@ -1,14 +1,14 @@
 apiVersion: argoproj.io/v1alpha1
 kind: Application
 metadata:
-  name: argp-bootstrap
+  name: crd2
   namespace: argocd
 spec:
   project: default
   source:
     repoURL: https://github.com/Kristof-oe/argocd_szakd.git
     targetRevision: HEAD
-    path: karpenter
+    path: argo_gitops/karpenter/monitor
   destination:
     namespace: argocd
     server: https://kubernetes.default.svc

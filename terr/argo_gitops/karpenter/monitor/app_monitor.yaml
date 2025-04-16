@@ -8,7 +8,6 @@ spec:
   source:
     chart: kube-prometheus-stack
     namespace: monitoring
-    name: kube-prometheus-stack
     repoURL: https://prometheus-community.github.io/helm-charts
     targetRevision: latest
     helm: 
@@ -16,10 +15,12 @@ spec:
       prometheus:
         prometheusSpec:
           serviceMonitorSelectorNilUsesHelmValues: false
+          externalLabels:
+            environment: "dev"
 
   destination:
     server: https://kubernetes.default.svc
-    namespace: monitoring
+    namespace: monitor
 syncPolicy:
   automated:
     selfHeal: true
