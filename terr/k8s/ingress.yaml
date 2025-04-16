@@ -7,7 +7,9 @@ metadata:
      alb.ingress.kubernetes.io/scheme: internet-facing
      alb.ingress.kubernetes.io/target-type: ip
     #  alb.ingress.kubernetes.io/group.name: "dev-alb-tg"
-     alb.ingress.kubernetes.io/healthcheck-path: /health   
+     alb.ingress.kubernetes.io/healthcheck-path: /health
+    #  alb.ingress.kubernetes.io/ssl-redirect: '8080'
+    #  alb.ingress.kubernetes.io/listen-ports: '[{"HTTPS": 8080}]'
 spec:
   ingressClassName: alb
   rules:
@@ -52,4 +54,4 @@ spec:
               service:
                 name: argo-cd-argocd-server
                 port:
-                  number: 80
+                  number: 443

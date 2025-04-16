@@ -62,7 +62,7 @@ resource "helm_release" "argocd" {
   create_namespace = true
   # version          = var.argocd_version
 
-
+  depends_on = [aws_eks_node_group.szakd-node]
 }
 
 # resource "helm_release" "karpenter-karpenter" {
@@ -120,26 +120,26 @@ resource "helm_release" "argocd" {
 
 # }
 
-# resource "helm_release" "efs-csi-driver" {
-#   name       = "aws-efs-csi-driver"
-#   repository = "https://kubernetes-sigs.github.io/aws-efs-csi-driver/"
-#   chart      = "aws-efs-csi-driver"
-#   namespace  = "kube-system"
+resource "helm_release" "efs-csi-driver" {
+  name       = "aws-efs-csi-driver"
+  repository = "https://kubernetes-sigs.github.io/aws-efs-csi-driver/"
+  chart      = "aws-efs-csi-driver"
+  namespace  = "kube-system"
 
-#   set {
-#     name  = "controller.serviceAccount.name"
-#     value = "efs-csi-controller-sa"
-#   }
+  set {
+    name  = "controller.serviceAccount.name"
+    value = "efs-csi-controller-sa"
+  }
 
-#   set {
+  set {
 
-#     name  = "controller.serviceAccount.annotations.eks\\.amazonaws\\.com/role-arn"
-#     value = aws_iam_role.efs-role.arn
-#   }
+    name  = "controller.serviceAccount.annotations.eks\\.amazonaws\\.com/role-arn"
+    value = aws_iam_role.efs-role.arn
+  }
 
-#   depends_on = [aws_efs_mount_target.zone1, aws_efs_mount_target.zone2]
+  depends_on = [aws_efs_mount_target.zone1, aws_efs_mount_target.zone2]
 
-# }
+}
 
 
 # resource "helm_release" "prometheus" {
