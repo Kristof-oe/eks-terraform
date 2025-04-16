@@ -1,1 +1,16 @@
-
+apiVersion: karpenter.k8s.aws/v1
+kind: EC2NodeClass
+metadata:
+  name: default
+spec:
+  amiFamily: AL2
+  instanceProfile: "KarpenterNodeIn"
+  subnetSelectorTerms:
+    - tags:
+        karpenter.sh/discovery: "dev-szakd-eks"
+  securityGroupSelectorTerms:
+    - tags:
+        kubernetes.io/cluster/dev-szakd-eks: "owned"
+  amiSelectorTerms:
+    - name: "amazon-eks-node-1.32-v*"
+      architecture: "x86_64"
