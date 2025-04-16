@@ -8,7 +8,7 @@ spec:
   source:
     repoURL: https://github.com/Kristof-oe/argocd_szakd.git
     targetRevision: HEAD
-    path: argo_gitops/karpenter/monitor
+    path: karpenter/monitor
   destination:
     namespace: monitor
     server: https://kubernetes.default.svc
