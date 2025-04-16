@@ -2,7 +2,7 @@ apiVersion: argoproj.io/v1alpha1
 kind: Application
 metadata:
   name: crd2
-  namespace: argocd
+  namespace: default
 spec:
   project: default
   source:
@@ -10,7 +10,7 @@ spec:
     targetRevision: HEAD
     path: argo_gitops/karpenter/monitor
   destination:
-    namespace: argocd
+    namespace: monitor
     server: https://kubernetes.default.svc
 
   syncPolicy:

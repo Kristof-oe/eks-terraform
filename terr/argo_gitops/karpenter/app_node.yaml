@@ -2,7 +2,7 @@ apiVersion: argoproj.io/v1alpha1
 kind: Application
 metadata:
   name: crd
-  namespace: argocd
+  namespace: default
 spec:
   project: default
   source:
@@ -10,7 +10,7 @@ spec:
     targetRevision: HEAD
     path: argo_gitops/karpenter/templates
   destination:
-    namespace: argocd
+    namespace: default
     server: https://kubernetes.default.svc
 
   syncPolicy:
