@@ -11,8 +11,8 @@ metadata:
 spec:
   ingressClassName: alb
   rules:
-    - host: frontend.weather.com
-      http:
+    # - host: frontend.weather.com
+    - http:
         paths:
           - path: /update
             pathType: Prefix
@@ -50,6 +50,6 @@ spec:
             pathType: Prefix
             backend:
               service:
-                name: argocdserv
+                name: argo-cd-argocd-server
                 port:
-                  number: 8080
+                  number: 80

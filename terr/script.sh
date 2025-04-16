@@ -14,10 +14,10 @@
 #     exit 1
 # fi
 
-git add .argo_szakd/ouput/*.yaml
+git add argo_gitops/
 
 git commit -m "updated argo" || echo "there is not any changes"
 
 git push origin main
 
-echo "Done
+echo "Done"
