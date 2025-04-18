@@ -8,32 +8,32 @@ spec:
     - crd
   project: default
   source:
-    chart: ${chart}
-    namespace: ${namespace}
+    chart: karpenter
+    namespace: karpenter
     repoURL: oci://public.ecr.aws/karpenter/karpenter
-    targetRevision: ${version}
+    targetRevision: 1.3.3
     helm:
       values: |
         settings:
-          clusterName: ${cluster_name}
-          interruptionQueue: ${interruptionQueue}
+          clusterName: dev-szakd-eks
+          interruptionQueue: karpenter-interruption
           resource:
             requests:
-              cpu: ${reqcpu}
-              memory: ${reqmemory}
+              cpu: 1
+              memory: 1Gi
             limits:
-              cpu: ${limitcpu}
-              memory: ${limitmemory}
+              cpu: 1
+              memory: 1Gi
         controller:
           serviceAccount:
             create: true
-            name: ${serviceAccountname}
+            name: karpenter
             annotations:
-              "eks\\.amazonaws\\.com/role-arn": ${serviceAccountarn}
+              "eks\\.amazonaws\\.com/role-arn": arn:aws:iam::650251684473:role/karpenter-controller
 
 destination:
   server: https://kubernetes.default.svc
-  namespace: ${namespace}
+  namespace: karpenter
 syncPolicy:
   automated:
     prune: true

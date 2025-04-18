@@ -230,7 +230,7 @@ variable "karpenter_namespace" {
 }
 
 variable "argocd_namespace" {
-  default = "argo-cd"
+  default = "argocd"
 }
 
 
