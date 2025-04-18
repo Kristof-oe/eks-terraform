@@ -47,11 +47,3 @@ spec:
                 name: react-service
                 port:
                   number: 3000
-
-          - path: /argo
-            pathType: Prefix
-            backend:
-              service:
-                name: argo-cd-argocd-server
-                port:
-                  number: 443
