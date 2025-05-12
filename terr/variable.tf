@@ -221,19 +221,3 @@ variable "protocol" {
   default = "tcp"
 }
 
-variable "karpenter_version" {
-  default = "1.3.3"
-}
-
-variable "karpenter_namespace" {
-  default = "karpenter"
-}
-
-variable "argocd_namespace" {
-  default = "argocd"
-}
-
-
-variable "argocd_version" {
-  default = "2.14.9"
-}

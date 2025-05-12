@@ -6,6 +6,8 @@ const Data2 = ({daily}) => {
 
   const Time = (l) => {
     return DateTime.fromISO(l, { zone: 'utc' }).toFormat('DD');
+    // ez szükséges volt ahhoz, hogy emberi szemnek normális időt adjon ki, 
+    // és ne másodpercre pontosan adja meg
   }; 
   return (
 
@@ -20,11 +22,11 @@ const Data2 = ({daily}) => {
                 
                 alt={day.fields.description}/>
             <p>{day.fields.pressure} hPa</p>
-            <p>{day.fields.clouds}%</p>
+            <p>{day.fields.clouds} %</p>
             <p>{day.fields.wind_speed} metre/sec</p>
-            <p>{day.fields.wind_deg}°</p>
-            <p>{day.fields.humidity}%</p>
-            <p>{day.fields.dew_point}°C</p>
+            <p>{day.fields.wind_deg} °</p>
+            <p>{day.fields.humidity} %</p>
+            <p>{day.fields.dew_point} °C</p>
             
 
             </div>

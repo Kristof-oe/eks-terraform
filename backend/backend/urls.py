@@ -18,11 +18,10 @@ from django.contrib import admin
 from django.urls import path, include
 from rest_framework import permissions
 
-
-
-
 urlpatterns = [
+    path('', include('django_prometheus.urls')),
     path('admin/', admin.site.urls),
     path('', include('weather.urls')),
+    
     
 ]

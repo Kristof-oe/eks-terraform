@@ -13,6 +13,7 @@ spec:
       labels:
         app: django
         tier: Backend
+        operated-prometheus: "true"
     spec:
       initContainers:
         - name: wait-pvc
@@ -75,6 +76,8 @@ apiVersion: v1
 kind: Service
 metadata:
   name: djangoserv
+  labels:
+    app: django
 spec:
   type: ClusterIP
   selector:

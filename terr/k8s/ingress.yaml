@@ -6,14 +6,11 @@ metadata:
      kubernetes.io/ingress.class: alb
      alb.ingress.kubernetes.io/scheme: internet-facing
      alb.ingress.kubernetes.io/target-type: ip
-    #  alb.ingress.kubernetes.io/group.name: "dev-alb-tg"
      alb.ingress.kubernetes.io/healthcheck-path: /health
-    #  alb.ingress.kubernetes.io/ssl-redirect: '8080'
-    #  alb.ingress.kubernetes.io/listen-ports: '[{"HTTPS": 8080}]'
+
 spec:
   ingressClassName: alb
   rules:
-    # - host: frontend.weather.com
     - http:
         paths:
           - path: /update

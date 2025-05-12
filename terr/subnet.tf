@@ -8,7 +8,6 @@ resource "aws_subnet" "private_subnet1" {
     Name                                                       = "${local.env}-${local.zone1}-priv"
     "kubernetes.io/role/internal-elb"                          = 1
     "kubernetes.io/cluster/${local.env}-${local.eks_name}-eks" = "owned"
-    "karpenter.sh/discovery"                                   = "${local.env}-${local.eks_name}-eks"
   }
 }
 
@@ -37,7 +36,6 @@ resource "aws_subnet" "private_subnet2" {
     Name                                                       = "${local.env}-${local.zone2}-priv"
     "kubernetes.io/role/internal-elb"                          = 1
     "kubernetes.io/cluster/${local.env}-${local.eks_name}-eks" = "owned"
-    "karpenter.sh/discovery"                                   = "${local.env}-${local.eks_name}-eks"
   }
 }
 

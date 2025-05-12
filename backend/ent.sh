@@ -2,20 +2,20 @@
 
 timeout=5 
 
-if [ "$DATABASE" = "postgres" ]; then
-    echo "Waiting for postgres..."
+for timeout in $(seq 5 -1 0);do
 
-    while ! nc -z $DB_HOST $DB_PORT; do
-      sleep 0.1
-      timeout=$((timeout - 1))
-        if [ $timeout -le 0 ]; then
-            echo "PostgreSQL connection timed out"
+    echo "Postgre in progress...($timeout)"
+
+    if nc -z $DB_HOST $DB_PORT; then
+        echo "PostgreSQL started..."
+        break
+    fi
+    sleep 1
+    if [ $timeout -eq 0 ]; then
+            echo "PostgreSQL connection timed out..."
             exit 1
         fi
     done
-
-    echo "PostgreSQL started"
-fi
 
 echo "Running Django migrations..."
 python manage.py makemigrations

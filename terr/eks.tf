@@ -17,6 +17,8 @@ resource "aws_eks_cluster" "szakd-eks" {
   version  = local.eks_version
 
 
+
+
   access_config {
     authentication_mode                         = var.authentication_mode
     bootstrap_cluster_creator_admin_permissions = var.bootstrap_cluster_creator_admin_permissions

@@ -2,31 +2,41 @@ import React, { useState } from 'react';
 import './Header.css'
 import search_icon from '../assets/search.png'
 
-const Header = ({ onSearch, handleChange, IsChecked }) => {
-    const [query, setQuery] = useState(null);
-  
-    const handleSearch = () => {
-      onSearch(query);
-      setQuery('');
-    };
+const Header = ({ Search, Change, Checked }) => {
+
+    const [city, emptyCity] = useState("");
+
+    const Searching = () => {
+      Search(city);
+      emptyCity('');
+    };// későbbiekben szükséges mert ez tudja majd üríteni 
+    // a search bart és tárolni a parentnek a város nevét
+
   return (
     <div className="Header">
 
-       <div class="form-check form-switch">
+       <div className="form-check form-switch">
           <input 
-          class="form-check-input"
+          className="form-check-input"
           type="checkbox" 
           id="flexSwitchCheckChecked" 
-          onClick={handleChange}
-          checked={IsChecked}
+          // itt a gombbal a light és 
+          // dark modot állítom be a képernyőn
+          onClick={Change}
+          checked={Checked}
           /> 
         </div>
 
-        <div className='search-bar'>
+        <div className='search'>
             <input type='text' placeholder='Search'
-              value={query} onChange={(e) => setQuery(e.target.value)}>
+              value={city} onChange={(v) => emptyCity(v.target.value)}>
             </input>
-              <img src={search_icon} alt="" onClick={handleSearch}/>
+             {/* itt a search bar helyezkedik ahol a gomb 
+             lenyomásával kiüríti a search bart és halad tovább 
+             a parenthez, hogy feldolgozza api kérésben*/}
+            <button onClick={Searching} className='button-img'>
+              <img src={search_icon}/>
+            </button>
         </div>
 
     </div>

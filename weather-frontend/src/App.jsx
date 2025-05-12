@@ -10,42 +10,46 @@ import './index.css';
 
 
 const App = () => {
-  const [isDark, setIsDark] =useState(false);
+  const [dark, setdark] =useState(false);
   const [weather, setweather] =useState("")
 
   const handleSearch = async (name) =>{
     const fullname= encodeURIComponent(name);
     try{
 
-      await fetch(`http://frontend.weather.com/update/${fullname}/`, {method: 'PUT'});
-
-
-      const jsonResponse= await fetch(`http://frontend.weather.com/json/${fullname}/`, {method: 'GET'});
-      const datas=await jsonResponse.json();
+      await fetch(`/update/${fullname}/`, 
+      {method: 'PUT'}); //elsőként az update elágazást tölti be mert 
+      // így ha már rendelkezik a tároló az adattal akkor egyszerűen frissíti
+      //  és nem lesz kulcsütközési hiba
+      
+      const jsonResponse= await fetch(`/json/${fullname}/`,
+      {method: 'GET'}); // majd json elágazással bekérem
+      const datas=await jsonResponse.json(); //elmentem json formátumba
 
       const Data={
-        key: JSON.parse(datas.key),
+        key: JSON.parse(datas.key), // itt külön szedem az adatokat a 
+        // modells.py-ban megadott táblázatok mentén
         current_weather: JSON.parse(datas.current_weather),
         hourly_weather: JSON.parse(datas.hourly_weather),
         daily_weather: JSON.parse(datas.daily_weather),
       };
 
       setweather(Data);
-      console.log(Data);
+      console.log(Data); //tesztcélból kiiratom az adatokat
 
 
-    }catch (upError){
+    }catch (putError){
 
-      console.error("Update cannot be completed, coming to get first this name", upError);
+      console.error("Update cannot be completed, coming to get first this name", putError); // itt hibát dob nincsen még az adataink között jön a get elágazás
 
 
           try{
 
-            await fetch(`http://frontend.weather.com/get/${fullname}/`, {method: 'GET'});
+            await fetch(`/get/${fullname}/`,
+            {method: 'GET'});
 
-        
-
-            const jsonResponse= await fetch(`http://frontend.weather.com/json/${fullname}/`, {method: 'GET'});
+            const jsonResponse= await fetch(`/json/${fullname}/`,
+            {method: 'GET'});
             const datas=await jsonResponse.json();
 
             const Data={
@@ -58,21 +62,23 @@ const App = () => {
             setweather(Data);
             console.log(Data);
           
-      } catch (ErrorAll){
-      console.error("There is no any name like that", ErrorAll);
-      alert("Error fetching weather")
+      } catch (allError){
+      console.error("There is no any name like that", allError); // Nincs ilyen városnév 
+      // a nyilvántartásban
+      alert("Error fetching weather")// Gui felületére is kiiratom, hogy ez sikertelen volt
       }
     }
   };
-  return (
-    <div className="app" dark-theme={isDark ? "dark": "light"}>
-
+  return (// itt a háttér világos és sötét megoldását váltogató kapcsoló 
+  // működését implementálom, illetve ha a setweather visszaad értékeket 
+  // akkor kiíroatom a megfelelő oszlopba, ha nem akkor üresen marad
+    <div className="app" dark-theme={dark ? "dark": "light"}> 
           <div className='main'>
             
             <Header 
-            onSearch={handleSearch}
-            IsChecked={isDark}
-            handleChange={()=> setIsDark(!isDark)} 
+            Search={handleSearch}
+            Checked={dark}
+            Change={()=> setdark(!dark)} 
             />
               { weather ? (
               <>

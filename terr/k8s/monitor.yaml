@@ -1,18 +1,21 @@
-# apiVersion: monitoring.coreos.com/v1
-# kind: ServiceMonitor
-# metadata:
-#   labels:
-#     serviceMonitorSelector: prometheus
-#   name: prometheus
-#   namespace: prometheus
-# spec:
-#   endpoints:
-#   - interval: 30s
-#     targetPort: 9900
-#     path: /metrics
-#   namespaceSelector:
-#     matchNames:
-#     - prometheus
-#   selector:
-#     matchLabels:
-#       operated-prometheus: "true"
+
+apiVersion: monitoring.coreos.com/v1
+kind: PodMonitor
+metadata:
+  name: back-monitor
+  namespace: monitoring
+  labels:
+    app: django
+    release: kube-prometheus-stack
+spec:
+  podMetricsEndpoints:
+  - interval: 10s
+    portNumber: 8000
+    path: /metrics
+  namespaceSelector:
+    matchNames:
+    - default
+  selector:
+    matchLabels:
+      operated-prometheus: "true"
+      

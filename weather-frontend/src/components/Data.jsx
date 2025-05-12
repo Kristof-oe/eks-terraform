@@ -6,6 +6,8 @@ const Data = ({hourly}) => {
 
   const Time = (l) => {
     return DateTime.fromISO(l, { zone: 'utc' }).toFormat('HH:mm');
+    // ez szükséges volt ahhoz, hogy emberi szemnek normális időt adjon ki, 
+    // és ne másodpercre pontosan adja meg
   }; 
   return (
 
@@ -20,11 +22,11 @@ const Data = ({hourly}) => {
                 
                 alt={hour.description}/>
             <p>{hour.fields.pressure} hPa</p>
-            <p>{hour.fields.clouds}%</p>
+            <p>{hour.fields.clouds} %</p>
             <p>{hour.fields.wind_speed} metre/sec</p>
-            <p>{hour.fields.wind_deg}°</p>
+            <p>{hour.fields.wind_deg} °</p>
             <p>{hour.fields.humidity} %</p>
-            <p>{hour.fields.dew_point}°C</p>
+            <p>{hour.fields.dew_point} °C</p>
 
             
 

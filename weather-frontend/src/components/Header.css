@@ -19,14 +19,14 @@
     cursor: pointer;
 
 }
-.search-bar{
+.search{
     display: flex;
     align-items: center;
     gap: 12px;
     
 
 }
-.search-bar input{
+.search input{
     height: 50px;
     background-color: hsl(0, 0%, 50%);
     border: none;
@@ -36,7 +36,12 @@
     font-size: 18px;
 
 }
-.search-bar img{
+.button-img{
+    background-color: hsl(0, 0%, 50%);
+    border-radius: 50%;
+}
+
+.button-img img{
     background-color: hsl(0, 0%, 50%);
     width: 50px;
     padding: 15px;
@@ -44,7 +49,7 @@
     cursor: pointer;
 }
 
-.search-bar img:hover{
+.button-img img:hover{
     background-color: hsl(0, 0%, 41%);
     width: 50px;
     padding: 15px;

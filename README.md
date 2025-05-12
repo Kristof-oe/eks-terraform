@@ -13,8 +13,7 @@ Initially, I planned to use Minikube, but due to various issues, I switched to A
 - **Storage**: EFS  
 - **Load Balancer**: AWS Load Balancer Controller (Helm)  
 - **Monitoring**: Prometheus & Grafana (Helm-based deployment)  
-- **Node Autoscaling**: Karpenter  
-- **GitOps**: ArgoCD (managing Karpenter and monitoring stack)
+- **Node Autoscaling**: Autoscaler 
 
 ## Challenges & Solutions  
 - **Minikube Limitations** → Switched to AWS EKS  
@@ -22,5 +21,4 @@ Initially, I planned to use Minikube, but due to various issues, I switched to A
 - **Multi-Zone Database Issue** → Used AWS RDS for Django + EFS for shared storage  
 - **Ingress & Security** → Implemented an NLB with proper IAM policies  
 - **Observability Gaps** → Deployed Prometheus and Grafana for metrics and dashboarding  
-- **Scalability Needs** → Integrated Karpenter for dynamic node provisioning  
-- **Complex Helm/K8s Management** → Adopted ArgoCD for GitOps-style infrastructure management
+- **Scalability Needs** → Integrated Autoscaler for dynamic node provisioning  

@@ -26,8 +26,8 @@ provider "kubernetes" {
 }
 
 
-
 resource "helm_release" "alb-controller" {
+
   name       = "aws-load-balancer-controller"
   repository = "https://aws.github.io/eks-charts"
   chart      = "aws-load-balancer-controller"
@@ -55,77 +55,37 @@ resource "helm_release" "alb-controller" {
   depends_on = [aws_eks_node_group.szakd-node]
 }
 
-resource "helm_release" "argocd" {
-  name             = "argo-cd"
-  repository       = "https://argoproj.github.io/argo-helm"
-  chart            = "argo-cd"
-  namespace        = var.argocd_namespace
-  create_namespace = true
-  # version          = var.argocd_version
+
+resource "helm_release" "autoscaler" {
+
+  name       = "autoscaler"
+  repository = "https://kubernetes.github.io/autoscaler"
+  namespace  = "kube-system"
+  chart      = "cluster-autoscaler"
 
   set {
-    name  = "InstallCRDs"
-    value = true
+    name  = "autoDiscovery.clusterName"
+    value = aws_eks_cluster.szakd-eks.name
   }
-  depends_on = [aws_eks_node_group.szakd-node]
+
+  set {
+    name  = "awsRegion"
+    value = local.region
+  }
+
+  set {
+    name  = "rbac.serviceAccount.name"
+    value = "cluster-autoscaler-sa"
+  }
+
+  set {
+    name  = "rbac.serviceAccount.annotations.eks\\.amazonaws\\.com/role-arn"
+    value = aws_iam_role.autoscaler-role.arn
+  }
 }
 
-# resource "helm_release" "karpenter-karpenter" {
-#   name             = "karpenter"
-#   repository       = "oci://public.ecr.aws/karpenter/karpenter"
-#   chart            = "karpenter"
-#   namespace        = var.karpenter_namespace
-#   version          = var.karpenter_version
-#   create_namespace = true
-#   cleanup_on_fail  = true
-
-#   set {
-#     name  = "settings.clusterName"
-#     value = aws_eks_cluster.szakd-eks.name
-#   }
-
-#   set {
-#     name  = "settings.interruptionQueue"
-#     value = aws_sqs_queue.karpenter.name
-#   }
-
-#   set {
-#     name  = "controller.resources.requests.cpu"
-#     value = "1"
-#   }
-
-#   set {
-#     name  = "controller.resources.requests.memory"
-#     value = "1Gi"
-#   }
-
-#   set {
-#     name  = "controller.resources.limits.cpu"
-#     value = "1"
-#   }
-
-#   set {
-#     name  = "controller.resources.limits.memory"
-#     value = "1Gi"
-#   }
-
-
-#   set {
-#     name  = "serviceAccount.name"
-#     value = "karpenter"
-#   }
-
-#   set {
-#     name  = "serviceAccount.annotations.eks\\.amazonaws\\.com/role-arn"
-#     value = aws_iam_role.karpenter-controller.arn
-#   }
-
-
-#   depends_on = [aws_eks_node_group.szakd-node]
-
-# }
-
 resource "helm_release" "efs-csi-driver" {
+
   name       = "aws-efs-csi-driver"
   repository = "https://kubernetes-sigs.github.io/aws-efs-csi-driver/"
   chart      = "aws-efs-csi-driver"
@@ -147,15 +107,23 @@ resource "helm_release" "efs-csi-driver" {
 }
 
 
-# resource "helm_release" "prometheus" {
-#   name             = "kube-prometheus-stack"
-#   repository       = "https://prometheus-community.github.io/helm-charts"
-#   chart            = "kube-prometheus-stack"
-#   namespace        = "monitoring"
-#   create_namespace = true
+resource "helm_release" "prometheus" {
 
-#   set {
-#     name  = "prometheus.prometheusSpec.serviceMonitorSelectorNilUsesHelmValues"
-#     value = false
-#   }
-# }
+  name             = "kube-prometheus-stack"
+  repository       = "https://prometheus-community.github.io/helm-charts"
+  chart            = "kube-prometheus-stack"
+  namespace        = "monitoring"
+  create_namespace = true
+
+  set {
+    name  = "prometheus.prometheusSpec.serviceMonitorSelectorNilUsesHelmValues"
+    value = false
+  }
+
+  set {
+    name  = "grafana.adminPassword"
+    value = var.db_password
+  }
+
+
+}

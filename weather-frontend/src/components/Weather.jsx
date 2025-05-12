@@ -7,6 +7,8 @@ const Weather = ({current, name}) => {
 
   const Time = (l) => {
     return DateTime.fromISO(l, { zone: 'utc' }).toFormat('HH:mm');
+    // ez szükséges volt ahhoz, hogy emberi szemnek normális időt adjon ki, 
+    // és ne másodpercre pontosan adja meg
   };
 
   return (
@@ -15,7 +17,7 @@ const Weather = ({current, name}) => {
          
         <h1>{Time(current[0].fields.dt)}</h1>
         <h2>{name}</h2>
-        <p>{current[0].fields.temp}°C</p>
+        <p>{current[0].fields.temp} °C</p>
 
         <img src={`http://openweathermap.org/img/wn/${current[0].fields.icon}@2x.png`} 
                 
@@ -35,7 +37,7 @@ const Weather = ({current, name}) => {
           Felhők 
           </td>
           <td className='Table2'>
-          {current[0].fields.clouds}%
+          {current[0].fields.clouds} %
           </td>
         </tr>
         <tr>
